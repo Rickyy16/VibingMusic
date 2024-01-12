@@ -34,7 +34,7 @@ const setSongName = (name) => {
 
 // function to fetch songs 
 async function getSongs(folder) {
-    let a = await fetch(`/Songs/${folder}/`);
+    let a = await fetch(`Songs/${folder}/`);
     let response = await a.text();
     let newDiv = document.createElement("div");
     newDiv.innerHTML = response;
@@ -49,25 +49,26 @@ async function getSongs(folder) {
 }
 
 async function getAlbums() {
-    let a = await fetch(`/Songs/`);
+    let a = await fetch(`Songs/`);
     let response = await a.text();
     let newDiv = document.createElement("div");
     newDiv.innerHTML = response;
     let as = newDiv.getElementsByTagName("a");
+
     let albums = [];
     for (let a in as) {
-        if (as[a].href?.includes("/Songs/") && !as[a].href?.includes(".htaccess")) {
-            albums.push(as[a].title);
+        if (as[a]?.href?.includes("/Songs/") && !as[a]?.href?.includes(".htaccess")) {
+            albums.push(as[a]?.title==""?as[a]?.text:as[a]?.title);
 
-            let folder = as[a].title;
-            let b = await fetch(`/Songs/${folder}/info.json`);
+            let folder = as[a]?.title==""?as[a]?.text:as[a]?.title;
+            let b = await fetch(`Songs/${folder}/info.json`);
             let response = await b.json();
 
             let cardContainer = document.querySelector(".card-container");
-            cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${response.datasetName}" class="card">
-            <img src="Img/${response.imageName}" alt="">
-            <h4>${response.albumName}</h4>
-            <p>${response.description}</p>
+            cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${response?.datasetName}" class="card">
+            <img src="Img/${response?.imageName}" alt="">
+            <h4>${response?.albumName}</h4>
+            <p>${response?.description}</p>
             <div class="playbtn"><img src="Img/play.png" alt=""></div>
         </div>`
         }
@@ -76,7 +77,7 @@ async function getAlbums() {
 
 // Play the music 
 const playMusic = (track, isTrue) => {
-    // let audio = new Audio("/Songs/"+track+".mp3");
+    // let audio = new Audio("Songs/"+track+".mp3");
     currentSong.src = `Songs/${currentFolder}/` + track + ".mp3";
     if (isTrue) {
         currentSong.play();
@@ -116,16 +117,16 @@ async function setPlaylist(currentFolder, isPlay = false) {
 
     // Get the list of all songs 
     songs = await getSongs(currentFolder);
-    playMusic(songs[0].split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), isPlay);
+    playMusic(songs[0]?.split(`Songs/${currentFolder}/`)[1]?.replaceAll("%20", " ").replaceAll(".mp3", ""), isPlay);
     // show all the songs in the playlist
     let songUl = document.getElementById("songs").querySelector("ul");
     songUl.innerHTML = "";
-    for (let index = 0; index < songs.length; index++) {
+    for (let index = 0; index < songs?.length; index++) {
         const element = songs[index];
         songUl.innerHTML = songUl.innerHTML + `<li>
  <div class="flex align-center">
      <img class="invert" src="Img/music.png" alt="">
-     <h5>${element.split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", "")}</h5>
+     <h5>${element?.split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", "")}</h5>
  </div>
  <div class="flex align-center">
      <img class="invert" src="Img/play.png" alt="">
@@ -138,20 +139,20 @@ async function setPlaylist(currentFolder, isPlay = false) {
     Array.from(document.querySelector(".songs").getElementsByTagName("li")).forEach((e) => {
         // console.log(e.querySelector('h5').innerHTML);
         e.addEventListener("click", () => {
-            playMusic(e.querySelector('h5').innerHTML, true);
+            playMusic(e?.querySelector('h5').innerHTML, true);
         })
     })
 }
 
 async function setImage(folder) {
-    let b = await fetch(`/Songs/${folder}/info.json`);
+    let b = await fetch(`Songs/${folder}/info.json`);
     let response = await b.json();
     document.querySelector(".song>img").attributes.src.nodeValue = `Img/${response.imageName}`;
 }
 
 async function main() {
 
-    currentFolder = "favorites";
+    currentFolder = "Favorites";
     await setPlaylist(currentFolder);
 
     // Display all the Playlist Card (Albums) on the page 
@@ -176,19 +177,19 @@ async function main() {
     previous.addEventListener("click", () => {
         let currentIndex = songs.indexOf(currentSong.src);
         if (currentSong.paused) {
-            playMusic(songs[shuffleValue ? Math.floor((songs.length - 1) * Math.random()) : currentIndex == 0 ? 0 : currentIndex - 1].split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), false);
+            playMusic(songs[shuffleValue ? Math.floor((songs.length - 1) * Math.random()) : currentIndex == 0 ? 0 : currentIndex - 1]?.split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), false);
         }
         else {
-            playMusic(songs[shuffleValue ? Math.floor((songs.length - 1) * Math.random()) : currentIndex == 0 ? 0 : currentIndex - 1].split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), true);
+            playMusic(songs[shuffleValue ? Math.floor((songs.length - 1) * Math.random()) : currentIndex == 0 ? 0 : currentIndex - 1]?.split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), true);
         }
     })
     next.addEventListener("click", () => {
         let currentIndex = songs.indexOf(currentSong.src);
         if (currentSong.paused) {
-            playMusic(songs[shuffleValue ? Math.floor((songs.length - 1) * Math.random()) : currentIndex + 1 == songs.length ? currentIndex : currentIndex + 1].split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), false);
+            playMusic(songs[shuffleValue ? Math.floor((songs.length - 1) * Math.random()) : currentIndex + 1 == songs.length ? currentIndex : currentIndex + 1]?.split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), false);
         }
         else {
-            playMusic(songs[shuffleValue ? Math.floor((songs.length - 1) * Math.random()) : currentIndex + 1 == songs.length ? currentIndex : currentIndex + 1].split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), true);
+            playMusic(songs[shuffleValue ? Math.floor((songs.length - 1) * Math.random()) : currentIndex + 1 == songs.length ? currentIndex : currentIndex + 1]?.split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), true);
         }
     })
 
@@ -258,7 +259,7 @@ async function main() {
     // Attach eventListener to mute the track
     let volumeImg = document.querySelector(".song-features> img");
     volumeImg.addEventListener("click", (e) => {
-        // console.log(e.target)
+        console.log(e.target)
         if (volumeImg.attributes.src.nodeValue == "Img/volume.png") {
             e.target.src = "Img/mute.png";
             currentSong.volume = 0;
@@ -275,10 +276,10 @@ async function main() {
     currentSong.addEventListener("ended", () => {
         let currentIndex = songs.indexOf(currentSong.src);
         if (repeatValue) {
-            playMusic(songs[currentIndex].split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), true);
+            playMusic(songs[currentIndex]?.split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), true);
         }
         else {
-            playMusic(songs[shuffleValue ? Math.floor((songs.length - 1) * Math.random()) : currentIndex + 1 == songs.length ? currentIndex : currentIndex + 1].split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), true);
+            playMusic(songs[shuffleValue ? Math.floor((songs.length - 1) * Math.random()) : currentIndex + 1 == songs.length ? currentIndex : currentIndex + 1]?.split(`Songs/${currentFolder}/`)[1].replaceAll("%20", " ").replaceAll(".mp3", ""), true);
         }
 
     })
@@ -286,7 +287,7 @@ async function main() {
     // Load the playlist whenever the card is clicked
     let card = document.getElementsByClassName("card");
     Array.from(card).forEach((item) => {
-        item.addEventListener("click", async (e) => {
+        item?.addEventListener("click", async (e) => {
             currentFolder = e.currentTarget.dataset.folder;
             await setPlaylist(currentFolder, true);
             await setImage(currentFolder);
