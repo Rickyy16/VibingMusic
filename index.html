@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Css/style.css">
+    <link rel="stylesheet" href="Css/utility.css">
+    <link rel="shortcut icon" href="Img/favicon.ico" type="image/x-icon">
+    <title>Vibing - Music for Everyone</title>
+</head>
+
+<body>
+    <div class="main flex">
+        <div class="left">
+            <div class="home bg-grey m-2 p-2 rounded">
+                <div class="logo"><a href="/"><img src="Img/logoo.png" alt="logo-img"></a></div>
+                <ul>
+                    <li><img class="invert cursor-pointer" src="Img/home.png" alt="home-img">
+                        <h4 class="cursor-pointer">Home</h4>
+                    </li>
+                    <li><img class="invert cursor-pointer" src="Img/search.png" alt="search-img">
+                        <h4 class="cursor-pointer">Search</h4>
+                    </li>
+                </ul>
+            </div>
+            <div class="library bg-grey m-2 p-2 rounded">
+                <div class="heading">
+                    <img class="invert cursor-pointer" src="Img/library.png" alt="library-img">
+                    <h4 class="cursor-pointer">Your Library</h4>
+                </div>
+                <div class="songs m-1" id="songs">
+                    <ul>
+                        
+                    </ul>
+                </div>
+                <div class="links">
+                    <ul>
+                        <li>Legal</li>
+                        <li>Privacy Center</li>
+                        <li>Privacy Policy</li>
+                        <li>Cookies</li>
+                        <li>About Ads</li>
+                        <li>Accessibility</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="header m-2 p-2 rounded flex justify-between">
+                <div class="nav-menu flex justify-center">
+                    <div class="menu">
+                        <img class="invert" src="Img/menu.png" alt="">
+                    </div>
+                    <div class="nav flex align-center">
+                        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="#ffffff"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="#ffffff"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+
+                </div>
+                <div class="buttons">
+                    <button class="signup cursor-pointer">Sign up</button>
+                    <button class="login cursor-pointer">Log in</button>
+                </div>
+            </div>
+            <div class="spotify-playlists bg-gradient m-2 rounded">
+                <h2>Vibing Playlists</h2>
+                <div class="card-container flex">
+
+                </div>
+                <!-- <h2>Sleep</h2>
+                <div class="card-container flex">
+                    <div class="card">
+                        <img src="Img/playlist-6jpeg.jpeg" alt="">
+                        <h3>Sleep</h3>
+                        <p>Gentle Ambient piano to help you fall asleep.</p>
+                        <div class="playbtn"><img src="Img/play.png" alt=""></div>
+                    </div>
+                    <div class="card">
+                        <img src="Img/playlist-6jpeg.jpeg" alt="">
+                        <h3>Sleep</h3>
+                        <p>Gentle Ambient piano to help you fall asleep.</p>
+                        <div class="playbtn"><img src="Img/play.png" alt=""></div>
+                    </div>
+                </div> -->
+                <div style="height: 16vh;"></div>
+            </div>
+        </div>
+        <div class="playbar">
+            <div class="song flex p-4 gap-2">
+                <img src="" alt="">
+                <!-- <marquee scrollamount="4" behavior="slide" direction=""><h4>Song Name</h4></marquee> -->
+                <h4>Song Name</h4>
+            </div>
+            <div class="song-btns flex column">
+                <div class="btns flex justify-center gap-2 p-4">
+                    <button class="shuffle invert"><img src="Img/shuffle.png" alt=""></button>
+                    <button class="pre invert"><img src="Img/previous.png" alt=""></button>
+                    <button class="play"><img src="Img/play.png" alt=""></button>
+                    <button class="next invert"><img src="Img/next.png" alt=""></button>
+                    <button class="repeat invert"><img src="Img/repeat.png" alt=""></button>
+                </div>
+                <div class="seekbarDiv flex row justify-evenly">
+                    <h5 class="currentDuration"></h5>
+                    <div class="seekbar">
+                        <div class="circle"></div>
+                    </div>
+                    <h5 class="totalDuration"></h5>
+                </div>
+            </div>
+            <div class="song-features flex gap-1 p-4 justify-center align-center">
+                <img class="invert" src="Img/volume.png" alt="">
+                <input class="volume" type="range" name="volume" id="">
+            </div>
+        </div>
+    </div>
+</body>
+<script src="Js/index.js"></script>
+
+</html>
